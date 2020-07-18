@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"os"
 	"os/signal"
 	"syscall"
@@ -9,7 +8,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/sirupsen/logrus"
 
-	"github.com/jackc/pgx/v4"
+	//"github.com/jackc/pgx/v4"
 	"github.com/joho/godotenv"
 )
 
@@ -17,7 +16,7 @@ var (
 	log    = logrus.New()
 	dg     *discordgo.Session
 	prefix = "!"
-	db     *pgx.Conn
+	//db     *pgx.Conn
 )
 
 func init() {
@@ -36,10 +35,10 @@ func init() {
 		log.Warn("No PREFIX env variable declared! Using default prefix \"!\"")
 	}
 
-	db, err = pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
-	if err != nil {
-		log.Fatal("Failed to connect to database")
-	}
+	//db, err = pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+	// if err != nil {
+	// 	log.Fatal("Failed to connect to database")
+	// }
 }
 
 func main() {
@@ -49,6 +48,7 @@ func main() {
 	}
 
 	dg.AddHandler(messageCreateEvent)
+
 	dg.AddHandler(readyEvent)
 	dg.AddHandler(guildJoinEvent)
 
